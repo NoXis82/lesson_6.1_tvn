@@ -1,4 +1,5 @@
 package ru.netology.service
+import ru.netology.attachments.*
 import ru.netology.wall.*
 
 
@@ -26,4 +27,34 @@ class WallService {
         return false
     }
 
+    fun readArray() {
+        for (post in postsArray) {
+            val attachments: Array<Attachments> = post.attachments ?: emptyArray()
+            for (attachment in attachments) {
+                when (attachment) {
+                    is NoteAttachments -> {
+                        val note: Note = attachment.note
+                        println("date: ${note.date}")
+                        println("text: ${note.text}")
+                        println("title: ${note.title}")
+                    }
+                    is PhotoAttachments -> {
+                        val photo: Photo = attachment.photo
+                        println("id: ${photo.albumId}")
+                        println("text: ${photo.text}")
+                        println("date: ${photo.date}")
+                    }
+                    is AudioAttachments -> {
+                        val audio: Audio = attachment.audio
+                    }
+                    is EventAttachments -> {
+                        val event: Event = attachment.event
+                    }
+                    is VideoAttachments -> {
+                        val video: Video = attachment.video
+                    }
+                }
+            }
+        }
+    }
 }
